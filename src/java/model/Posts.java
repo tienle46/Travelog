@@ -6,9 +6,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,12 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,14 +60,18 @@ public class Posts implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @JoinColumn(name = "post_id", referencedColumnName = "tag_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Tags tags;
+    @OneToMany(mappedBy = "postId")
+    private Collection<Comments> commentsCollection;
+    @JoinColumn(name = "tag_id", referencedColumnName = "tag_id")
+    @ManyToOne
+    private Tags tagId;
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     @ManyToOne
     private Users ownerId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "posts1")
-    private Tags tags1;
+    @OneToMany(mappedBy = "postId")
+    private Collection<Likes> likesCollection;
+    @OneToMany(mappedBy = "inPostid")
+    private Collection<Tags> tagsCollection;
 
     public Posts() {
     }
@@ -115,12 +120,21 @@ public class Posts implements Serializable {
         this.date = date;
     }
 
-    public Tags getTags() {
-        return tags;
+    @XmlTransient
+    public Collection<Comments> getCommentsCollection() {
+        return commentsCollection;
     }
 
-    public void setTags(Tags tags) {
-        this.tags = tags;
+    public void setCommentsCollection(Collection<Comments> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
+    public Tags getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Tags tagId) {
+        this.tagId = tagId;
     }
 
     public Users getOwnerId() {
@@ -131,12 +145,22 @@ public class Posts implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public Tags getTags1() {
-        return tags1;
+    @XmlTransient
+    public Collection<Likes> getLikesCollection() {
+        return likesCollection;
     }
 
-    public void setTags1(Tags tags1) {
-        this.tags1 = tags1;
+    public void setLikesCollection(Collection<Likes> likesCollection) {
+        this.likesCollection = likesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Tags> getTagsCollection() {
+        return tagsCollection;
+    }
+
+    public void setTagsCollection(Collection<Tags> tagsCollection) {
+        this.tagsCollection = tagsCollection;
     }
 
     @Override

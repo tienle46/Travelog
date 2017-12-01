@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -35,6 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")})
 public class Users implements Serializable {
+
+    @OneToMany(mappedBy = "ownerId")
+    private Collection<Comments> commentsCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+    private Likes likes;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -127,5 +134,22 @@ public class Users implements Serializable {
    public void setPostCollection(Collection<Posts> postCollection) {
     this.postCollection = postCollection;
    }
+
+    @XmlTransient
+    public Collection<Comments> getCommentsCollection() {
+        return commentsCollection;
+    }
+
+    public void setCommentsCollection(Collection<Comments> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
+    public Likes getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Likes likes) {
+        this.likes = likes;
+    }
     
 }

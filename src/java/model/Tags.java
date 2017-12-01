@@ -6,20 +6,22 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Tags.findAll", query = "SELECT t FROM Tags t")
     , @NamedQuery(name = "Tags.findByTagId", query = "SELECT t FROM Tags t WHERE t.tagId = :tagId")
-    , @NamedQuery(name = "Tags.findByTagname", query = "SELECT t FROM Tags t WHERE t.tagname = :tagname")
-    , @NamedQuery(name = "Tags.findByPostId", query = "SELECT t FROM Tags t WHERE t.postId = :postId")})
+    , @NamedQuery(name = "Tags.findByTagname", query = "SELECT t FROM Tags t WHERE t.tagname = :tagname")})
 public class Tags implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,13 +45,11 @@ public class Tags implements Serializable {
     @Size(max = 255)
     @Column(name = "tagname")
     private String tagname;
-    @Column(name = "post_id")
-    private Integer postId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tags")
-    private Posts posts;
-    @JoinColumn(name = "tag_id", referencedColumnName = "post_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Posts posts1;
+    @OneToMany(mappedBy = "tagId")
+    private Collection<Posts> postsCollection;
+    @JoinColumn(name = "inPost_id", referencedColumnName = "post_id")
+    @ManyToOne
+    private Posts inPostid;
 
     public Tags() {
     }
@@ -75,28 +74,21 @@ public class Tags implements Serializable {
         this.tagname = tagname;
     }
 
-    public Integer getPostId() {
-        return postId;
+    @XmlTransient
+    public Collection<Posts> getPostsCollection() {
+        return postsCollection;
     }
 
-    public void setPostId(Integer postId) {
-        this.postId = postId;
+    public void setPostsCollection(Collection<Posts> postsCollection) {
+        this.postsCollection = postsCollection;
     }
 
-    public Posts getPosts() {
-        return posts;
+    public Posts getInPostid() {
+        return inPostid;
     }
 
-    public void setPosts(Posts posts) {
-        this.posts = posts;
-    }
-
-    public Posts getPosts1() {
-        return posts1;
-    }
-
-    public void setPosts1(Posts posts1) {
-        this.posts1 = posts1;
+    public void setInPostid(Posts inPostid) {
+        this.inPostid = inPostid;
     }
 
     @Override
