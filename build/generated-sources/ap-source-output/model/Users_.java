@@ -8,7 +8,7 @@ import model.Comments;
 import model.Likes;
 import model.Posts;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-12-05T12:39:28")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-12-05T15:17:52")
 @StaticMetamodel(Users.class)
 public class Users_ { 
 

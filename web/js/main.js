@@ -1,3 +1,5 @@
+/* global fetch */
+
 function logoutButton() {
     var loginButton = document.querySelector('#login');
     login.innerHTML = 'Logouts';
@@ -42,7 +44,27 @@ function createCookie() {
     if (id){
     logoutButton();
     }
+}  
+    
+function displayContent() {
+    var imgList = document.querySelector('.img-list');
+    var imgRequest = new Request('http://10.114.32.133:8080/Travelog/resources/Fetch/postData');
+    
+    fetch(imgRequest)
+            .then(function(response) {
+                return response.json();
+    })
+    
+            .then(function(json) {
+                for (var i=0; i<json.length; i++) {
+                    var listItem = document.createElement('li');
+                    listItem.innerHTML = '<img src="' + json[i].path + '">';
+                    imgList.appendChild(listItem);
+                    
+                }
+    });
 }
+
 createCookie();
 var idInput = document.querySelector('#userId');
 idInput.value = getCookie();

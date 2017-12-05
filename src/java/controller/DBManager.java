@@ -83,7 +83,7 @@ public class DBManager {
     //creates a list of all images to the fron-end and
     //reverses the order so the newest is on top
     //and the oldest on bottom
-    public List<Posts> getAllImages() {
+    public List<Posts> getAllPosts() {
         List<Posts> post = em.createNamedQuery("Posts.findAll").getResultList();
         ArrayList<Posts> newList = new ArrayList<Posts>(post);
         Collections.reverse(newList);
