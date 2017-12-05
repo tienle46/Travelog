@@ -46,9 +46,7 @@ public class DBManager {
         
     }
     
-    public Collection<Posts> getPostByUserName(String name){
-        return getUserByName(name).getPostCollection();
-    }
+    
     
     //Insert to database
     public void insertUser(Users user){
@@ -180,6 +178,17 @@ public class DBManager {
         return getTagByName(name).getPostsCollection();
     }
     
+    public Users createUser(String name, String password, String email) {
+        
+        
+        Users u = new Users();
+        u.setUsername(name);
+        u.setPw(password);
+        u.setEmail(email);
+        em.persist(u);
+        return u;
+        
+    }
 }
 
     

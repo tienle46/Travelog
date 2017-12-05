@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,9 +45,6 @@ public class Tags implements Serializable {
     private String tagname;
     @OneToMany(mappedBy = "tagId")
     private Collection<Posts> postsCollection;
-    @JoinColumn(name = "inPost_id", referencedColumnName = "post_id")
-    @ManyToOne
-    private Posts inPostid;
 
     public Tags() {
     }
@@ -81,14 +76,6 @@ public class Tags implements Serializable {
 
     public void setPostsCollection(Collection<Posts> postsCollection) {
         this.postsCollection = postsCollection;
-    }
-
-    public Posts getInPostid() {
-        return inPostid;
-    }
-
-    public void setInPostid(Posts inPostid) {
-        this.inPostid = inPostid;
     }
 
     @Override

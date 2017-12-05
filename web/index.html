@@ -1,16 +1,108 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<head>
+	<meta charset="utf-8">
+	<title>Travelog</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<div class="topnav" id="myTopnav"> <!--nav-->
+			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+			<a href="index.html" class="nav-hidden">Home</a>
+			<a href="profile.html" class="profile-hidden" style="display: none;">Profile</a>
+			<a href="login.html" id="login">Login</a>
+			<a href="#">About</a>
+			<a href="#" onclick="document.getElementById('upload-modal').style.display='block'" style="width:auto;">Upload</a>
+    </div>
+
+ 	<div class="banner"> <!--header-->
+    	<div class="image">
+      		<img src="img/banner.jpeg">
+    	</div>
+		<div class="content">
+		 	<div class="valign-table">
+		    	<div class="valign-cell"> <!--minimize divs-->
+		      		<div class="text">
+		      			<h2>Travelog</h2>
+		      		</div>
+		      		<div class="wrap">
+				   		<div class="search">
+				      		<input type="text" class="searchTerm">
+				      		<button type="submit" class="searchButton">
+				        	<i class="fa fa-search"></i>
+				     		</button>
+				   		</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+  	</div>
+
+  	<div id="upload-modal" class="upload-modal">
+		<form class="upload-modal-content" action="Upload" method ="post" enctype="multipart/form-data">
+                    <input type="hidden" name="userId" id ="userId">    
+                    <h1 style="text-align: center;">Upload</h1>
+                       
+		    <div class="upload-container">
+                        
+                        <label><b>Title</b></label>
+		      	<input type="text" placeholder="Title" name="title" required>
+		      
+		      	<label><b>Description</b></label>
+		      	<textarea placeholder="Description" name="des"></textarea>
+		      
+		      	<label><b>Tag</b></label>
+		      	<input type="text" placeholder="Tags" name="tag" required>
+
+		      	<label><b>File</b></label>
+		      	<input type="file" name="file" >  
+		 
+		      	<button type="submit">Upload</button>
+		    </div>
+	  	</form>
+	</div>
+
+  	<main class="primary-color"> <!--main content-->
+            <ul>
+                <li><img src="img/original/1.jpg"></li>
+				<li><img src="img/original/2.jpg"></li>
+				<li><img src="img/original/3.jpg"></li>
+				<li><img src="img/original/4.jpg"></li>
+				<li><img src="img/original/7.jpg"></li>
+				<li><img src="img/original/5.jpg"></li>
+				<li><img src="img/original/6.jpg"></li>
+				<li><img src="img/original/8.jpg"></li>
+				<li><img src="img/original/9.jpg"></li>
+            </ul>
+    </main>
+
+    <div class="footer">
+		<p>Travelog &#169; 2017</p>
+	</div>
+
+  	<script>
+        //MENU RESPONSIVE
+		const myFunction=() => {
+		const x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+	    		x.className += " responsive";
+			} else {
+	    		x.className = "topnav";
+			}
+		}
+
+		//UPLOAD POPUP
+		var modal = document.getElementById('upload-modal');
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+
+	</script>
+        <script src ="js/main.js"></script>
+        
+</body>
 </html>

@@ -70,14 +70,21 @@ public class Posts implements Serializable {
     private Users ownerId;
     @OneToMany(mappedBy = "postId")
     private Collection<Likes> likesCollection;
-    @OneToMany(mappedBy = "inPostid")
-    private Collection<Tags> tagsCollection;
 
     public Posts() {
     }
 
     public Posts(Integer postId) {
         this.postId = postId;
+    }
+
+    public Posts(String path, String title, String description, Date date, Tags tag, Users u) {
+        this.path = path;
+        this.title = title;
+        this.description = description;
+        this.tagId = tag;
+        this.ownerId = u;
+              
     }
 
     public Integer getPostId() {
@@ -152,15 +159,6 @@ public class Posts implements Serializable {
 
     public void setLikesCollection(Collection<Likes> likesCollection) {
         this.likesCollection = likesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Tags> getTagsCollection() {
-        return tagsCollection;
-    }
-
-    public void setTagsCollection(Collection<Tags> tagsCollection) {
-        this.tagsCollection = tagsCollection;
     }
 
     @Override

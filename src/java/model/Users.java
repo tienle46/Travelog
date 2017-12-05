@@ -38,11 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")})
 public class Users implements Serializable {
 
-    @OneToMany(mappedBy = "ownerId")
-    private Collection<Comments> commentsCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-    private Likes likes;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,8 +54,12 @@ public class Users implements Serializable {
     @Size(max = 255)
     @Column(name = "username")
     private String username;
-    @OneToMany(mappedBy = "owner_id")
-    private Collection<Posts> postCollection;
+    @OneToMany(mappedBy = "ownerId")
+    private Collection<Comments> commentsCollection;
+    @OneToMany(mappedBy = "ownerId")
+    private Collection<Posts> postsCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+    private Likes likes;
 
     public Users() {
     }
@@ -101,6 +100,32 @@ public class Users implements Serializable {
         this.username = username;
     }
 
+    @XmlTransient
+    public Collection<Comments> getCommentsCollection() {
+        return commentsCollection;
+    }
+
+    public void setCommentsCollection(Collection<Comments> commentsCollection) {
+        this.commentsCollection = commentsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Posts> getPostsCollection() {
+        return postsCollection;
+    }
+
+    public void setPostsCollection(Collection<Posts> postsCollection) {
+        this.postsCollection = postsCollection;
+    }
+
+    public Likes getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Likes likes) {
+        this.likes = likes;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -124,32 +149,6 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "model.Users[ id=" + id + " ]";
-    }
-    
-    @XmlTransient
-    public Collection<Posts> getPostCollection() {
-        return postCollection;
-    }
-    
-   public void setPostCollection(Collection<Posts> postCollection) {
-    this.postCollection = postCollection;
-   }
-
-    @XmlTransient
-    public Collection<Comments> getCommentsCollection() {
-        return commentsCollection;
-    }
-
-    public void setCommentsCollection(Collection<Comments> commentsCollection) {
-        this.commentsCollection = commentsCollection;
-    }
-
-    public Likes getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Likes likes) {
-        this.likes = likes;
     }
     
 }

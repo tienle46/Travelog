@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+	font-family: Raleway;
+}
+
+body {
+	position: relative;
+  	min-height: 100%;
+	padding: 0 0 6rem 0;
+	margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*BANNER BACKGROUND*/
+.banner {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+ 
+.image {
+	position: relative;
+	width: 100%;
+	background-color: #000000;
+}
+
+.image img {
+	display: block;
+	width: 100%;
+	height: auto;
+	opacity: 0.4;
+}
+
+/*NAVIGATION BAR*/
+.topnav {
+	position: absolute;
+	top: 0; right: 0;
+	overflow: hidden;
+	z-index: 10;
+}
+
+.topnav .nav-hidden {
+	display: block;
+	float: left;
+}
+
+.topnav a {
+	float: right;
+	display: block;
+	color: #fff;
+	text-align: center;
+	padding: 20px 20px;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+.topnav .icon {
+	display: none;
+}
+
+/*BANNER CONTENT*/
+.content {
+	position: relative;
+	width: 100%;
+	padding: 40px 20px;
+}
+
+.valign-table {
+	position: relative;
+	display: table;
+	width: 100%;
+	height: 80%;
+}
+
+.valign-cell {
+	position: relative;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.text {
+	position:relative;
+	display: inline-block;
+	width: 100%;
+	max-width: 800px;
+	text-align: center;
+}
+
+h2 {
+	color: #000000;
+	font-family: Lobster;
+	font-size: 2.25em;
+	line-height: 1.25;
+	letter-spacing: 0.1rem;
+	text-indent: 0.1rem;
+}
+
+/*SEARCH BAR*/
+.search {
+	width: 100%;
+	position: relative;
+}
+
+.searchTerm {
+	float: left;
+	width: 100%;
+	border: 3px solid #fff;
+	padding: 5px 12px ;
+	height: 40px;
+	border-radius: 5px;
+	outline: none;
+}
+
+.searchButton {
+	position: absolute;
+	right: 0px;
+	width: 50px;
+	height: 40px;
+	border: 1px solid #A9A9A9;
+	background: #A9A9A9;
+	text-align: center;
+	color: #fff;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.wrap {
+	width: 50%;
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/*UPLOAD POPUP*/
+
+.upload-modal input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.upload-modal input[type=file] {
+	width: 100%;
+    padding: 12px 0;
+    margin: 8px 0;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.upload-modal textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+
+.upload-modal button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 40%;
+   	display: block;
+    margin: 12px auto 0;
+    text-transform: uppercase;
+
+}
+
+.upload-container {
+    padding: 16px;
+}
+
+.upload-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+.upload-modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/*IMAGE GALERY*/
+
+main {
+	width: 100%;
+}
+
+main ul {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+    justify-content: space-around;
+    padding: 0;
+}
+
+main img {
+    margin: 0.5rem 0.5rem;
+    position: relative;
+	width: 300px;
+}
+
+/*FOOTER*/
+.footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: black;
+	text-align: center;
+}
+
+.footer p {
+	margin: 5px;
+	color: #fff;
+}
+
+/*Responsive design*/
+@media screen and (max-width: 720px) {
+	.topnav {
+		width: 100%;
+	}
+
+	.topnav a, .topnav .nav-hidden {
+		display: none;
+	}
+
+	.topnav a.icon {
+		float: right;
+		display: block;
+	}
+
+	.topnav.responsive { 
+		position: absolute; 
+		top: 0;
+	}
+	.topnav.responsive .icon {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.topnav.responsive a {
+		float: none;
+		display: block;
+		text-align: center;
+		background-color: black;
+	}
+
+	.content {
+		position: absolute;
+		top: 10%;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		padding: 0 30px;
+	}
+
+	h2 {
+		font-size: 1.75em;
+		color: #FFFFFF;
+		text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+	}
+
+	.searchTerm, .searchButton {
+		display: none;
+	}
+
+ }
+
+@media screen and (min-width: 720px) {
+	.content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		padding: 0 30px;
+	}
+
+	h2 {
+		color: #FFFFFF;
+		text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5);
+	}
+}
+
+@media screen and (min-width: 1280px) {
+	h2 {
+		font-size: 4rem;
+		letter-spacing: 0.3rem;
+		text-indent: 0.3rem;
+	}
+}
