@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,57 +28,57 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Likes.findAll", query = "SELECT l FROM Likes l")
-    , @NamedQuery(name = "Likes.findByUserId", query = "SELECT l FROM Likes l WHERE l.userId = :userId")})
+    , @NamedQuery(name = "Likes.findByLikeId", query = "SELECT l FROM Likes l WHERE l.likeId = :likeId")})
 public class Likes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "user_id")
-    private Integer userId;
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Users users;
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
+    @Column(name = "like_id")
+    private Integer likeId;
+    @JoinColumn(name = "user", referencedColumnName = "user_id")
     @ManyToOne
-    private Posts postId;
+    private Users user;
+    @JoinColumn(name = "post", referencedColumnName = "post_id")
+    @ManyToOne
+    private Posts post;
 
     public Likes() {
     }
 
-    public Likes(Integer userId) {
-        this.userId = userId;
+    public Likes(Integer likeId) {
+        this.likeId = likeId;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getLikeId() {
+        return likeId;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setLikeId(Integer likeId) {
+        this.likeId = likeId;
     }
 
-    public Users getUsers() {
-        return users;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
-    public Posts getPostId() {
-        return postId;
+    public Posts getPost() {
+        return post;
     }
 
-    public void setPostId(Posts postId) {
-        this.postId = postId;
+    public void setPost(Posts post) {
+        this.post = post;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (likeId != null ? likeId.hashCode() : 0);
         return hash;
     }
 
@@ -89,7 +89,7 @@ public class Likes implements Serializable {
             return false;
         }
         Likes other = (Likes) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        if ((this.likeId == null && other.likeId != null) || (this.likeId != null && !this.likeId.equals(other.likeId))) {
             return false;
         }
         return true;
@@ -97,7 +97,7 @@ public class Likes implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Likes[ userId=" + userId + " ]";
+        return "Model.Likes[ likeId=" + likeId + " ]";
     }
     
 }

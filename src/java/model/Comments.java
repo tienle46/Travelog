@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -42,12 +42,12 @@ public class Comments implements Serializable {
     @Size(max = 255)
     @Column(name = "comment")
     private String comment;
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @JoinColumn(name = "post", referencedColumnName = "post_id")
     @ManyToOne
-    private Users ownerId;
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
+    private Posts post;
+    @JoinColumn(name = "owner", referencedColumnName = "user_id")
     @ManyToOne
-    private Posts postId;
+    private Users owner;
 
     public Comments() {
     }
@@ -72,20 +72,20 @@ public class Comments implements Serializable {
         this.comment = comment;
     }
 
-    public Users getOwnerId() {
-        return ownerId;
+    public Posts getPost() {
+        return post;
     }
 
-    public void setOwnerId(Users ownerId) {
-        this.ownerId = ownerId;
+    public void setPost(Posts post) {
+        this.post = post;
     }
 
-    public Posts getPostId() {
-        return postId;
+    public Users getOwner() {
+        return owner;
     }
 
-    public void setPostId(Posts postId) {
-        this.postId = postId;
+    public void setOwner(Users owner) {
+        this.owner = owner;
     }
 
     @Override
@@ -110,7 +110,7 @@ public class Comments implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Comments[ commentId=" + commentId + " ]";
+        return "Model.Comments[ commentId=" + commentId + " ]";
     }
     
 }

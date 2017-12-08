@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -60,31 +60,24 @@ public class Posts implements Serializable {
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
     private Date date;
-    @OneToMany(mappedBy = "postId")
+    @OneToMany(mappedBy = "post")
     private Collection<Comments> commentsCollection;
-    @JoinColumn(name = "tag_id", referencedColumnName = "tag_id")
+    @JoinColumn(name = "owner", referencedColumnName = "user_id")
     @ManyToOne
-    private Tags tagId;
-    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    private Users owner;
+    @JoinColumn(name = "tag", referencedColumnName = "tag_id")
     @ManyToOne
-    private Users ownerId;
-    @OneToMany(mappedBy = "postId")
+    private Tags tag;
+    @OneToMany(mappedBy = "post")
     private Collection<Likes> likesCollection;
+    @OneToMany(mappedBy = "post")
+    private Collection<Tags> tagsCollection;
 
     public Posts() {
     }
 
     public Posts(Integer postId) {
         this.postId = postId;
-    }
-
-    public Posts(String path, String title, String description, Date date, Tags tag, Users u) {
-        this.path = path;
-        this.title = title;
-        this.description = description;
-        this.tagId = tag;
-        this.ownerId = u;
-              
     }
 
     public Integer getPostId() {
@@ -136,20 +129,20 @@ public class Posts implements Serializable {
         this.commentsCollection = commentsCollection;
     }
 
-    public Tags getTagId() {
-        return tagId;
+    public Users getOwner() {
+        return owner;
     }
 
-    public void setTagId(Tags tagId) {
-        this.tagId = tagId;
+    public void setOwner(Users owner) {
+        this.owner = owner;
     }
 
-    public Users getOwnerId() {
-        return ownerId;
+    public Tags getTag() {
+        return tag;
     }
 
-    public void setOwnerId(Users ownerId) {
-        this.ownerId = ownerId;
+    public void setTag(Tags tag) {
+        this.tag = tag;
     }
 
     @XmlTransient
@@ -159,6 +152,15 @@ public class Posts implements Serializable {
 
     public void setLikesCollection(Collection<Likes> likesCollection) {
         this.likesCollection = likesCollection;
+    }
+
+    @XmlTransient
+    public Collection<Tags> getTagsCollection() {
+        return tagsCollection;
+    }
+
+    public void setTagsCollection(Collection<Tags> tagsCollection) {
+        this.tagsCollection = tagsCollection;
     }
 
     @Override
@@ -183,7 +185,7 @@ public class Posts implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Posts[ postId=" + postId + " ]";
+        return "Model.Posts[ postId=" + postId + " ]";
     }
     
 }

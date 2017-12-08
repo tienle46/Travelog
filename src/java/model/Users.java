@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,18 +30,21 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
-    , @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id")
+    , @NamedQuery(name = "Users.findByUserId", query = "SELECT u FROM Users u WHERE u.userId = :userId")
+    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
     , @NamedQuery(name = "Users.findByPw", query = "SELECT u FROM Users u WHERE u.pw = :pw")
-    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
-    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")})
+    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
+    @Column(name = "user_id")
+    private Integer userId;
+    @Size(max = 255)
+    @Column(name = "username")
+    private String username;
     @Size(max = 255)
     @Column(name = "pw")
     private String pw;
@@ -51,29 +52,34 @@ public class Users implements Serializable {
     @Size(max = 255)
     @Column(name = "email")
     private String email;
-    @Size(max = 255)
-    @Column(name = "username")
-    private String username;
-    @OneToMany(mappedBy = "ownerId")
+    @OneToMany(mappedBy = "owner")
     private Collection<Comments> commentsCollection;
-    @OneToMany(mappedBy = "ownerId")
+    @OneToMany(mappedBy = "owner")
     private Collection<Posts> postsCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-    private Likes likes;
+    @OneToMany(mappedBy = "user")
+    private Collection<Likes> likesCollection;
 
     public Users() {
     }
 
-    public Users(Integer id) {
-        this.id = id;
+    public Users(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPw() {
@@ -90,14 +96,6 @@ public class Users implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @XmlTransient
@@ -118,18 +116,19 @@ public class Users implements Serializable {
         this.postsCollection = postsCollection;
     }
 
-    public Likes getLikes() {
-        return likes;
+    @XmlTransient
+    public Collection<Likes> getLikesCollection() {
+        return likesCollection;
     }
 
-    public void setLikes(Likes likes) {
-        this.likes = likes;
+    public void setLikesCollection(Collection<Likes> likesCollection) {
+        this.likesCollection = likesCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (userId != null ? userId.hashCode() : 0);
         return hash;
     }
 
@@ -140,7 +139,7 @@ public class Users implements Serializable {
             return false;
         }
         Users other = (Users) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -148,7 +147,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Users[ id=" + id + " ]";
+        return "Model.Users[ userId=" + userId + " ]";
     }
     
 }

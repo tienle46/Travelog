@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package Model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -43,8 +45,11 @@ public class Tags implements Serializable {
     @Size(max = 255)
     @Column(name = "tagname")
     private String tagname;
-    @OneToMany(mappedBy = "tagId")
+    @OneToMany(mappedBy = "tag")
     private Collection<Posts> postsCollection;
+    @JoinColumn(name = "post", referencedColumnName = "post_id")
+    @ManyToOne
+    private Posts post;
 
     public Tags() {
     }
@@ -78,6 +83,14 @@ public class Tags implements Serializable {
         this.postsCollection = postsCollection;
     }
 
+    public Posts getPost() {
+        return post;
+    }
+
+    public void setPost(Posts post) {
+        this.post = post;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,7 +113,7 @@ public class Tags implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Tags[ tagId=" + tagId + " ]";
+        return "Model.Tags[ tagId=" + tagId + " ]";
     }
     
 }

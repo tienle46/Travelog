@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package Controller;
 
+import Model.Comments;
+import Model.Likes;
+import Model.Posts;
+import Model.Tags;
+import Model.Users;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import model.Comments;
-import model.Posts;
-import model.Tags;
-import model.Users;
 
 /**
  *
@@ -23,8 +23,7 @@ import model.Users;
  */
 @Stateless
 public class DBManager {
-
-    @PersistenceContext(name = "TravelogPU")
+    @PersistenceContext(name ="Travelog-finalPU")
     private EntityManager em;
     
     public List<Users> getAllUser(){
@@ -59,8 +58,12 @@ public class DBManager {
     }
     
     //get comments of matching id
+    //reverses the order so the newest on top
     public List<Comments> getCommentForPost(int postId){
-        return em.createNamedQuery("Comments.findAll").getResultList();
+        
+        ArrayList<Comments> list = new ArrayList<>(getPostByID(postId).getCommentsCollection());
+        Collections.reverse(list);
+        return list;
     }
     
     //inserts the feedback to the back-end
@@ -82,7 +85,6 @@ public class DBManager {
 
     //creates a list of all images to the fron-end and
     //reverses the order so the newest is on top
-    //and the oldest on bottom
     public List<Posts> getAllPosts() {
         List<Posts> post = em.createNamedQuery("Posts.findAll").getResultList();
         ArrayList<Posts> newList = new ArrayList<Posts>(post);
@@ -96,25 +98,6 @@ public class DBManager {
         return em.createNamedQuery("Comments.findAll").getResultList();
     }
     
-    //if multiple posts have same amount of comments
-    //it chooses the newest one.
-    //shows only one result
-    public Posts getOneOfPostWithMostComment(){
-        return (Posts)em.createNamedQuery("Posts.findOneByMaxFeedback").getSingleResult();
-    }
-    
-    //creates a group of images and goes through which one has the most comments
-    //if multiple images have same amount of comments, the function above activates
-    //shows only one result
-    public List<Comments> getPostMostComment(){
-        return em.createNamedQuery("Comments.findMostCommentedPost").getResultList();
-    }
-    
-    //makes a list of users and sees which one has the most comments
-    //the one with most comments is on top
-    public List<Comments> getUserMostFeedback(){
-        return em.createNamedQuery("Comments.findMostActiveUser").getResultList();
-    }
 
     //inserts image in database
     public Posts insertPost(Posts post) {
@@ -174,9 +157,6 @@ public class DBManager {
         em.remove(em.merge(tag));
     }
     
-    public Collection<Posts> getPostByTag(String name){
-        return getTagByName(name).getPostsCollection();
-    }
     
     public Users createUser(String name, String password, String email) {
         
@@ -189,6 +169,64 @@ public class DBManager {
         return u;
         
     }
-}
-
     
+    public Integer getNumberOfLikeForPost(Posts post) {
+        ArrayList<Likes> list = new ArrayList<>(post.getLikesCollection());
+        Integer i = 0;
+        for (Likes c : list) {
+            i++;
+        }
+        return i;
+    }
+    
+    public List<Tags> getTagByPost(Posts post) {
+        ArrayList<Tags> list = new ArrayList<>(post.getTagsCollection());
+        return list;
+        
+    }
+    
+    public List<Posts> getPostByTag(Tags tag) {
+        ArrayList<Posts> list = new ArrayList<>(tag.getPostsCollection());
+        return list;
+    }
+    
+    public List<Posts> getPostByUser(Users user) {
+        ArrayList<Posts> list = new ArrayList<>(user.getPostsCollection());
+        return list;
+    }
+    
+    public Comments insertComment(String comment, Users user, Posts post) {
+        Comments c = new Comments();
+        c.setComment(comment);
+        c.setOwner(user);
+        c.setPost(post);
+        em.persist(c);
+        return c;
+    }
+    
+    public Likes insertLike(Users user, Posts post) {
+        Likes l = new Likes();
+        l.setUser(user);
+        l.setPost(post);
+        em.persist(l);
+        return l;
+    }
+    
+    public void unlike (Users user, Posts post) {
+        Likes l = new Likes();
+        l.setUser(user);
+        l.setPost(post);
+        em.remove(l);
+    }
+    
+    public boolean checkLike(Users user, Posts post) {
+        List<Likes> list = em.createNamedQuery("Likes.findAll").getResultList();
+        
+        for (Likes i : list ) {
+            if (i.getUser() == user && i.getPost() == post) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
