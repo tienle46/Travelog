@@ -5,7 +5,9 @@
 	<title>Travelog</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
+        <link rel="stylesheet" type="text/css" href="style/box-style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
 </head>
 <body>
 	<div class="topnav" id="myTopnav"> <!--nav-->
@@ -31,7 +33,7 @@
 				   		<div class="search">
 				      		<input type="text" class="searchTerm">
 				      		<button type="submit" class="searchButton">
-				        	<i class="fa fa-search"></i>
+				        	<i class="fa fa-search" aria-hidden="true"></i>
 				     		</button>
 				   		</div>
 					</div>
@@ -64,52 +66,65 @@
 	  	</form>
 	</div>
         
-  	<main class="primary-color main-content"> <!--main content-->
-            <div class="img-list" id="abc">
-            <!--
-            <ul>
-                <li><img src="img/original/1.jpg"></li>
-				<li><img src="img/original/2.jpg"></li>
-				<li><img src="img/original/3.jpg"></li>
-				<li><img src="img/original/4.jpg"></li>
-				<li><img src="img/original/7.jpg"></li>
-				<li><img src="img/original/5.jpg"></li>
-				<li><img src="img/original/6.jpg"></li>
-				<li><img src="img/original/8.jpg"></li>
-				<li><img src="img/original/9.jpg"></li>
-            </ul>
-            -->
-            </div>
+    <main class="primary-color main-content"> <!--main content-->
+        <ul class="img-list">
+        </ul>
     </main>
-
+    <!--
+    <div id="image-modal" class="image-modal" >
+        <div class="image-modal-content">
+            <div class="image-container">
+                <div class="box1">
+                    <figure>
+                        <img src=" " id="image-popup">
+                        <figcaption><b id="img-title"></b> by <a id="img-owner"></a> on <span id="img-date"></span></figcaption>
+                    </figure>
+                </div>
+                
+                <div class="box2">
+                    <p id="caption"></p>
+                    <a id="img-tag"></a>
+                    <span>
+                        <i class="fa fa-heart-o" aria-hidden="true"><span id="likeNumber"> people liked this</span></i>
+                    </span>
+                    <textarea></textarea>
+                    <button class="button">Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
     <div class="footer">
 		<p>Travelog &#169; 2017</p>
 	</div>
         
-        <script>
-            
-        </script>
+        <script src ="js/main.js"></script>
   	<script>
         //MENU RESPONSIVE
-		const myFunction=() => {
-		const x = document.getElementById("myTopnav");
-			if (x.className === "topnav") {
-	    		x.className += " responsive";
-			} else {
-	    		x.className = "topnav";
-			}
-		}
+        const myFunction=() => {
+        const x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                x.className += " responsive";
+                } else {
+                x.className = "topnav";
+                }
+        };
 
-		//UPLOAD POPUP
-		var modal = document.getElementById('upload-modal');
-		window.onclick = function(event) {
-		    if (event.target == modal) {
-		        modal.style.display = "none";
-		    }
-		}
-
+        //UPLOAD POPUP
+        
+        var upModal = document.getElementById("upload-modal");
+        
+        window.onclick = function(event) {
+            if (event.target === upModal) {
+                upModal.style.display = "none";
+            }
+        };
+		
+                
+        //IMAGE MODAL
+        
 	</script>
-        <script src ="js/main.js"></script>
+        
         
 </body>
 </html>

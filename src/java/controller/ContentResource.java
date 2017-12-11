@@ -65,23 +65,24 @@ public class ContentResource {
         
     @POST
     @Path("Comment")
-        public Response comment(@FormParam("userid") Integer userid, @FormParam("postid") Integer postid, @FormParam("comment") String comment) throws URISyntaxException {
+        public Response comment(@FormParam("userId") Integer userid, @FormParam("postId") Integer postid, @FormParam("comment") String comment) throws URISyntaxException {
             Model.Users user = dm.getUserById(userid);
             Model.Posts post = dm.getPostByID(postid);
-            Comments c = dm.insertComment(comment, user, post);
-            java.net.URI location = new java.net.URI("../index.html");
+            dm.insertComment(comment, user, post);
+            java.net.URI location = new java.net.URI("../view.html");
             return Response.temporaryRedirect(location).build();
     }
         
     @POST
     @Path("Like")
-    public void like(@FormParam("userid") Integer userid, @FormParam("postid") Integer postid) throws URISyntaxException {
+    public Response like(@FormParam("userId1") Integer userid, @FormParam("postId1") Integer postid) throws URISyntaxException {
         Model.Users user = dm.getUserById(userid);
         Model.Posts post = dm.getPostByID(postid);
-        boolean status = dm.checkLike(user, post);
-        if (status = false) {
-            dm.insertLike(user, post);
-        } else dm.unlike(user, post);
         
+        if (dm.checkLike(user, post) == false) {
+            dm.insertLike(user, post);
+        }
+        java.net.URI location = new java.net.URI("../view.html");
+            return Response.temporaryRedirect(location).build();
     }
 }

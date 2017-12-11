@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Produces;
@@ -27,6 +28,7 @@ import javax.ws.rs.core.MediaType;
  * @author macbook
  */
 @Path("Fetch")
+@Stateful
 public class FetchResource {
     
     @EJB
@@ -82,8 +84,9 @@ public class FetchResource {
                 .add("path", t.getPath())
                 .add("title", t.getTitle())
                 .add("description", t.getDescription())
-                .add("owner", t.getOwner().getUserId())
-                .add("tag", t.getTag().getTagId());
+                .add("date", t.getDate().toString())
+                .add("owner", t.getOwner().getUsername())
+                .add("tag", t.getTag().getTagname());
             list.add(out);
         }
         
@@ -94,7 +97,7 @@ public class FetchResource {
     @Path("Comment/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String commentsByMediaId(@PathParam("id") int i) {
-        List<Comments> object = dm.getCommentForPost(i);
+        List<Comments> object = dm.getCommentForPost(dm.getPostByID(i));
 
         
         JsonObjectBuilder out = null;
@@ -118,7 +121,7 @@ public class FetchResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String getNumberOfLike(@PathParam("id") int i) {
        JsonObjectBuilder out = Json.createObjectBuilder()
-               .add("Number of like", dm.getNumberOfLikeForPost(dm.getPostByID(i)));
+               .add("likenumber", dm.getNumberOfLikeForPost(dm.getPostByID(i)));
         List<JsonObjectBuilder> list = new ArrayList<>();
         list.add(out);
        return JSONBuilder(list);

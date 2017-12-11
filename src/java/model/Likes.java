@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Likes.findAll", query = "SELECT l FROM Likes l")
-    , @NamedQuery(name = "Likes.findByLikeId", query = "SELECT l FROM Likes l WHERE l.likeId = :likeId")})
+    , @NamedQuery(name = "Likes.findByLikeId", query = "SELECT l FROM Likes l WHERE l.likeId = :likeId")
+    , @NamedQuery(name = "Likes.findByPost", query = "SELECT l FROM Likes l WHERE l.post = :post")})
 public class Likes implements Serializable {
 
     private static final long serialVersionUID = 1L;

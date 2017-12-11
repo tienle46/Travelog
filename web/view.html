@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="style/view-style.css">
+</head>
+<body>
+	<div class="container">
+    <div class="box1">
+      <figure>
+      <img src="" id="img-popup">  
+      <figcaption><span id="img-title"></span> by <span id="img-owner">Xao Lon</span> on <span id="img-date">Dec 7th</span></figcaption>
+      </figure>    
+    </div>
+    <div class="box2">
+      <p id="caption">
+        
+      </p>
+      <p>
+          <a href=""><span id="img-tag"></span></a>
+      </p>
+      <span>
+        <form action="webresources/Content/Like" method="post">
+            <button>
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+            </button>
+            <input name ="userId1" type="hidden" id ="userId1">
+            <input name ="postId1" type="hidden" id ="postId1">
+        </form>
+          <span id="like-number"></span> people liked this
+      </span>
+      <form action="webresoures/Content/Comment" method ="post">
+        <textarea name="comment" required>
+        </textarea>
+          <input name ="userId" type="hidden" id ="userId">
+          <input name ="postId" type="hidden" id ="postId">
+        <button type="submit" class="button">Button</button>
+      </form>
+      <ul class="cmt-list">
+          
+      </ul>
+    </div>
+    </div>
+    
+    <script src ="js/view.js"></script>
+</body>
+</html>

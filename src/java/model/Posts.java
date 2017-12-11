@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Posts.findByPath", query = "SELECT p FROM Posts p WHERE p.path = :path")
     , @NamedQuery(name = "Posts.findByTitle", query = "SELECT p FROM Posts p WHERE p.title = :title")
     , @NamedQuery(name = "Posts.findByDescription", query = "SELECT p FROM Posts p WHERE p.description = :description")
-    , @NamedQuery(name = "Posts.findByDate", query = "SELECT p FROM Posts p WHERE p.date = :date")})
+    , @NamedQuery(name = "Posts.findByDate", query = "SELECT p FROM Posts p WHERE p.date = :date")
+    , @NamedQuery(name = "Posts.findByTag", query = "SELECT p FROM Posts p WHERE p.tag = :tag")
+    , @NamedQuery(name = "Posts.findByOwner", query = "SELECT p FROM Posts p WHERE p.owner = :owner")})
 public class Posts implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,7 +60,7 @@ public class Posts implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @OneToMany(mappedBy = "post")
     private Collection<Comments> commentsCollection;

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -59,9 +60,12 @@ public class DBManager {
     
     //get comments of matching id
     //reverses the order so the newest on top
-    public List<Comments> getCommentForPost(int postId){
+    public List<Comments> getCommentForPost(Posts postId){
+        Query query = em.createNamedQuery("Comments.findByPost");
+        query.setParameter("post", postId);
+        List<Comments> list = query.getResultList();
         
-        ArrayList<Comments> list = new ArrayList<>(getPostByID(postId).getCommentsCollection());
+        //ArrayList<Comments> list = new ArrayList<>(getPostByID(postId).getCommentsCollection());
         Collections.reverse(list);
         return list;
     }
@@ -171,7 +175,10 @@ public class DBManager {
     }
     
     public Integer getNumberOfLikeForPost(Posts post) {
-        ArrayList<Likes> list = new ArrayList<>(post.getLikesCollection());
+        //ArrayList<Likes> list = new ArrayList<>(post.getLikesCollection());
+        Query query = em.createNamedQuery("Likes.findByPost");
+        query.setParameter("post", post);
+        List<Likes> list = query.getResultList();
         Integer i = 0;
         for (Likes c : list) {
             i++;
@@ -180,18 +187,24 @@ public class DBManager {
     }
     
     public List<Tags> getTagByPost(Posts post) {
-        ArrayList<Tags> list = new ArrayList<>(post.getTagsCollection());
+        Query query = em.createNamedQuery("Tags.findByPost");
+        query.setParameter("post", post);
+        List<Tags> list = query.getResultList();
         return list;
         
     }
     
     public List<Posts> getPostByTag(Tags tag) {
-        ArrayList<Posts> list = new ArrayList<>(tag.getPostsCollection());
+        Query query = em.createNamedQuery("Posts.findByTag");
+        query.setParameter("tag", tag);
+        List<Posts> list = query.getResultList();
         return list;
     }
     
     public List<Posts> getPostByUser(Users user) {
-        ArrayList<Posts> list = new ArrayList<>(user.getPostsCollection());
+        Query query = em.createNamedQuery("Posts.findByOwner");
+        query.setParameter("owner", user);
+        List<Posts> list = query.getResultList();
         return list;
     }
     
@@ -211,14 +224,7 @@ public class DBManager {
         em.persist(l);
         return l;
     }
-    
-    public void unlike (Users user, Posts post) {
-        Likes l = new Likes();
-        l.setUser(user);
-        l.setPost(post);
-        em.remove(l);
-    }
-    
+  
     public boolean checkLike(Users user, Posts post) {
         List<Likes> list = em.createNamedQuery("Likes.findAll").getResultList();
         

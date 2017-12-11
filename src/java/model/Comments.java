@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Comments.findAll", query = "SELECT c FROM Comments c")
     , @NamedQuery(name = "Comments.findByCommentId", query = "SELECT c FROM Comments c WHERE c.commentId = :commentId")
-    , @NamedQuery(name = "Comments.findByComment", query = "SELECT c FROM Comments c WHERE c.comment = :comment")})
+    , @NamedQuery(name = "Comments.findByComment", query = "SELECT c FROM Comments c WHERE c.comment = :comment")
+    , @NamedQuery(name = "Comments.findByPost", query = "SELECT c FROM Comments c WHERE c.post = :post")})
 public class Comments implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,12 +43,12 @@ public class Comments implements Serializable {
     @Size(max = 255)
     @Column(name = "comment")
     private String comment;
-    @JoinColumn(name = "post", referencedColumnName = "post_id")
-    @ManyToOne
-    private Posts post;
     @JoinColumn(name = "owner", referencedColumnName = "user_id")
     @ManyToOne
     private Users owner;
+    @JoinColumn(name = "post", referencedColumnName = "post_id")
+    @ManyToOne
+    private Posts post;
 
     public Comments() {
     }
@@ -72,20 +73,20 @@ public class Comments implements Serializable {
         this.comment = comment;
     }
 
-    public Posts getPost() {
-        return post;
-    }
-
-    public void setPost(Posts post) {
-        this.post = post;
-    }
-
     public Users getOwner() {
         return owner;
     }
 
     public void setOwner(Users owner) {
         this.owner = owner;
+    }
+
+    public Posts getPost() {
+        return post;
+    }
+
+    public void setPost(Posts post) {
+        this.post = post;
     }
 
     @Override
