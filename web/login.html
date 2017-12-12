@@ -1,46 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-	<title>Travelog</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-    @media screen and (min-width: 720px) {
-		body::after {
-		    background-image: url("img/login-bg.jpeg");
-		    background-repeat: no-repeat;
-		    background-size: cover;
-		    content: "";
-			opacity: 0.4;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			right: 0;
-			left: 0;
-			z-index: -1; 
-		}
-
-		main {
-			width: 30%;
-            margin: 0 auto; 
-            padding-top: 12%;
-		}
-    }
-        
-    @media screen and (max-width: 720px) {
-        main {
-            width: 80%;
-            margin: 0 auto;
-            padding-top: 25%;
-        }
-    }
-        
-    html {
+	html {
 		height: 100%;
 		background-color: #000;
 	}
-
 	body {
 		height: 100%;
 		margin: 0;
@@ -49,8 +14,28 @@
 		position: relative;
 		z-index: 0;
 	}
-        
-        
+
+	body::after {
+	    background-image: url("img/login-bg.jpeg");
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    content: "";
+		opacity: 0.4;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: -1; 
+	}
+
+	.main {
+		width: 30%;
+		margin: 0 auto;
+		z-index: 1;
+		padding-top: 12%;
+	}
+
 	div.tab {
 	    overflow: hidden;
 	    border: 1px solid #ccc;
@@ -114,66 +99,62 @@
 	    padding: 16px;
 	}
 
-	main p {
+	.main p {
 		text-align: center;
 		color: #00ffff;
 	}
 
-	main p a:visited, main p a:hover, main p a:active, main p a:link {
+	.main p a:visited, .main p a:hover, .main p a:active, .main p a:link {
 		text-decoration: none;
 		color: #00ffff;
 	}
-        
 	</style>
 </head>
 
 <body>
-	<main>
-		<div class="tab">
-			<button class="tablinks" id="defaultOpen" onclick="openTab(event, 'loginTab')">Login</button>
-			<button class="tablinks" onclick="openTab(event, 'signupTab')">Signup</button>
-		</div>
+	<div class="main">
+	<div class="tab">
+	  <button class="tablinks" id="defaultOpen" onclick="openTab(event, 'loginTab')">Login</button>
+	  <button class="tablinks" onclick="openTab(event, 'signupTab')">Signup</button>
+	</div>
 
-		<div id="loginTab" class="tabcontent">
-			<form action="webresources/Content/Login" method="post" id ="login">
-				<div class="container">
-				<label><strong>Username</strong></label>
-				<input type="text" placeholder="Enter Username" id="usname" name="uname" maxlength="25" required>
+	<div id="loginTab" class="tabcontent">
+            <form action="webresources/Content/Login" method="post" id ="login">
+	  <div class="container">
+	    <label><b>Username</b></label>
+	    <input type="text" placeholder="Enter Username" name="uname" required>
 
-				<label><strong>Password</strong></label>
-				<input type="password" placeholder="Enter Password" id="uspassword" name="psw" required>
+	    <label><b>Password</b></label>
+	    <input type="password" placeholder="Enter Password" name="psw" required>
+	        
+	    <button type="submit" name ="Submit">Login</button>
+	  </div>
+	  </form>
+	</div>
 
-				<button type="submit" name ="Submit" onclick="checkLoginInput()">Login</button>
-				</div>
-			</form>
-		</div>
+	<div id="signupTab" class="tabcontent">
+            <form action="webresources/Content/Signup" id = "signup" method="post" >
+	  <div class="container">
+	    <label><b>Username</b></label>
+	    <input type="text" placeholder="Enter Username" name="signup_uname" required>
 
-		<div id="signupTab" class="tabcontent">
-			<form action="webresources/Content/Signup" id = "signup" method="post">
-				<div class="container">
-				<label><strong>Username</strong></label>
-				<input type="text" placeholder="Enter Username" id="uname" name="signup_uname" maxlength="25" required>
+	    <label><b>Email</b></label>
+	    <input type="text" placeholder="Enter Email" name="signup_email" required>
 
-				<label><strong>Email</strong></label>
-				<input type="text" placeholder="Enter Email" id="uemail" name="signup_email" required>
-
-				<label><strong>Password</strong></label>
-				<input type="password" placeholder="Enter Password" id="upsw" name="signup_psw" required>
-
-				<button type="submit" name ="Submit" onclick="checkSignUpInput()">Sign up</button>
-				</div>
-			</form> 
-		</div>
-
-		<p><a href="index.html">Back to home</a></p>
-	</main>
-
+	    <label><b>Password</b></label>
+	    <input type="password" placeholder="Enter Password" name="signup_psw" required>
+	        
+	    <button type="submit" name ="Submit">Sign up</button>
+          </div>
+	  </form> 
+	</div>
+	<p><a href="index.html">Back to home</a></p>
+	</div>
 	<script>
 	document.getElementById("defaultOpen").click();
 	
-
-	const openTabn=(evt, tabName) => {
-		var i, tabcontent, tablinks;
+	function openTab(evt, tabName) {
+	    var i, tabcontent, tablinks;
 	    tabcontent = document.getElementsByClassName("tabcontent");
 	    for (i = 0; i < tabcontent.length; i++) {
 	        tabcontent[i].style.display = "none";
@@ -185,34 +166,7 @@
 	    document.getElementById(tabName).style.display = "block";
 	    evt.currentTarget.className += " active";
 	}
-
-    const checkSignUpInput=() => {
-	    var uname = document.getElementById("uname");
-	    var upsw = document.getElementById("upsw");
-	    var uemail = document.getElementById("uemail");
-	    
-	        if (uname.checkValidity() == false) {
-	        alert("Invalid or blank username");
-	        } 
-	        else if (uemail.checkValidity() == false) {
-	            alert("Invalid or blank email");
-	        } 
-	        else if (upsw.checkValidity() == false) {
-	            alert("Invalid or blank password");
-	        } 
-    }
-    
-    const checkLoginInput=() => {
-    	var usname = document.getElementById("usname");
-	    var upassword = document.getElementById("uspassword");
-	    
-	        if (usname.checkValidity() == false) {
-	            alert("Invalid or blank username");
-	        } 
-	        else if (upassword.checkValidity() == false) {
-	            alert("Invalid or blank password");
-	        } 
-    }
 	</script>
+     
 </body>
 </html> 
