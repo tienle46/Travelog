@@ -48,7 +48,7 @@ public class Upload extends HttpServlet {
         post.setTag(tag);
         post.setOwner(u);
         dm.insertPost(post);
-        request.getPart("file").write(filename);
+        request.getPart("file").write(                                                                                                                                                  filename);
         response.sendRedirect("index.html");
         } catch (Exception pokemon) {
             java.util.logging.Logger.getLogger(Upload.class.getName()).log(Level.SEVERE, null, pokemon);

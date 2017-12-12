@@ -3,31 +3,44 @@
     box-sizing: border-box;
     font-family: Arial;
 }
+html {
+    height: 100%;
+}
 
 body {
     margin: 0; padding: 0;
-    width: 100%;
+    width: 100%; height: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+h3, p {
+    margin: 10px auto;
 }
 
 .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
+    height: 100%;
 }
 
 .box1 {
     width: 70%;
+    height: 100%;
     background-color: black;
+    position: relative;
 }
 
 .box1 img {
-    max-width: 100%;
-    max-height: 500px;
-    display:block;
-    margin:auto;
+    max-height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
 }
 
 .box1 figure {
-    position: relative;
     margin: 0;
 }
 
@@ -39,47 +52,65 @@ body {
     padding: 0 0.5rem;
 }
 
+#heart:visited {
+    background-color: red;
+}
+
 .box2 {
     width: 30%;
-    padding: 20px 10px;
+    margin: 0;
+    padding: 20px;
     background-color: white;
 }
 
-.box2 h2 {
-    margin: 0;
+.like-button {
+	display: inline-block;
+    background-color: white;
+    border: none;
 }
 
-.box2 a {
-    text-decoration: none;
+.heart {
+    font-size: 16px;
 }
 
-.box2 textarea {
-    margin: 0;
+.cmt-box {
     width: 100%;
-    height: 50px;
-    padding: 2px 2px 0;
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    resize: none;
+	position: relative;
+    margin: 10px 0;
 }
 
-.box2 p {
-    margin: 5px auto;
+.box2 input[type=text] {
+    float: left;
+	width: 81%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+    cursor: pointer;
 }
 
-.box2 textarea {
-    margin: 10px 0 0 0;
-}
-
-.box2 .button {
-    width: 100%;
+.box2 button[type="submit"]  {
+    width: 20%;
+    position: absolute;
+    right: 0;
     background-color: #4CAF50;
     border: none;
+    border-radius: 0 5px 5px 0;
     color: white;
-    padding: 10px;
-    text-align: center;
+    padding: 12px 10px;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 0;
     cursor: pointer;
+}
+
+.cmt-list-box ul {
+	margin-top: 17%;
+    padding: 0  ;
+}
+
+.cmt-list-box ul li {
+    list-style-type: none;
+    background-color: #E8E8E8;
+    padding:5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
 }

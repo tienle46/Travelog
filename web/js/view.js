@@ -30,7 +30,7 @@ function deleteCookie() {
 }
 
 function loadImgView() {
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog-final3324008235048993204/webresources/Fetch/AllPost');
+    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/AllPost');
     
     
     fetch(myRequest)
@@ -51,27 +51,28 @@ function loadImgView() {
         document.getElementById("img-title").innerHTML = title;
         document.getElementById("img-owner").innerHTML = owner;
         document.getElementById("img-date").innerHTML = date;
-        document.getElementById("img-tag").innerHTML = tag;
+        document.getElementById("img-tag").innerHTML = '<a id="'+tag+'" onclick = "getId1(this.id)" href="search.html" target="_blank">'+tag+'</a>';
       });
       
 }
 
 function loadComment() {
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog-final3324008235048993204/webresources/Fetch/Comment/'+postId);
+    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/Comment/'+postId);
     var cmtList = document.querySelector('.cmt-list');
     fetch(myRequest)
             .then(function(response) {return response.json();  })
             .then(function(data){
                 for (var i = 0; i < data.length; i++) {
                     var listItem = document.createElement('li');
-                    listItem.innerHTML = '<p>'+data[i].user+' said: '+data[i].comment+'</p>';
+                    listItem.classname += "cmt-item";
+                    listItem.innerHTML = '<p><strong>'+data[i].user+'</strong></p> <p>'+data[i].comment+'</p>';
                     cmtList.appendChild(listItem);
                 }
             });
 }
 
 function loadLike() {
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog-final3324008235048993204/webresources/Fetch/Like/'+postId);
+    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/Like/'+postId);
     
     fetch(myRequest)
             .then(function(response) {return response.json();  })
@@ -81,6 +82,11 @@ function loadLike() {
                 }
             });
 }
+
+function getId1(clicked_id) {
+              document.cookie = 'abcId=' + clicked_id + ';expires=Thu, 18 Dec 2020 12:00:00 UTC';
+              
+          }
 loadImgView();
 loadComment();
 loadLike();

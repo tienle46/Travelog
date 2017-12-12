@@ -9,40 +9,45 @@
 	<div class="container">
     <div class="box1">
       <figure>
-      <img src="" id="img-popup">  
-      <figcaption><span id="img-title"></span> by <span id="img-owner">Xao Lon</span> on <span id="img-date">Dec 7th</span></figcaption>
+      <img src="paris.jpg" id="img-popup">  
+      <figcaption><span id="img-title"></span> by <span id="img-owner"><a href="">Xao Lon</a></span> on <span id="img-date">Dec 7th</span></figcaption>
       </figure>    
     </div>
     <div class="box2">
-      <p id="caption">
-        
-      </p>
+      <h3 id="caption" style="margin-top: 0">
+      </h3>
       <p>
-          <a href=""><span id="img-tag"></span></a>
+            <span id="img-tag"></span>
+            <form>
+                <input type = "hidden" id = "search" name ="search">
+            </form>
       </p>
-      <span>
-        <form action="webresources/Content/Like" method="post">
-            <button>
-            <i class="fa fa-heart-o" aria-hidden="true"></i>
-            </button>
+        <form action="webresources/Content/Like" method="post" style="padding-bottom: 5px;">
             <input name ="userId1" type="hidden" id ="userId1">
             <input name ="postId1" type="hidden" id ="postId1">
+            <button class="like-button hidden">
+            <a id="heart"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:16px;"></i></a>
+            </button>
+            <span id="like-number"></span> people liked this
         </form>
-          <span id="like-number"></span> people liked this
-      </span>
-      <form action="webresoures/Content/Comment" method ="post">
-        <textarea name="comment" required>
-        </textarea>
-          <input name ="userId" type="hidden" id ="userId">
-          <input name ="postId" type="hidden" id ="postId">
-        <button type="submit" class="button">Button</button>
+
+      
+      <form class="hidden cmt-box" action="webresources/Content/Comment" method ="post">
+        <input name ="userId" type="hidden" id ="userId">
+        <input name ="postId" type="hidden" id ="postId">
+        <input type="text" name="comment" required>
+        <button type="submit" class="button">CMT</button>
       </form>
-      <ul class="cmt-list">
-          
-      </ul>
+	  
+	  <div class="cmt-list-box">
+		  <ul class="cmt-list">
+		  </ul>
+	  </div>
     </div>
     </div>
     
     <script src ="js/view.js"></script>
+    <script src ="js/main.js"></script>
+    
 </body>
 </html>

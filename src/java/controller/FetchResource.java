@@ -9,7 +9,6 @@ import Model.Comments;
 import Model.Posts;
 import Model.Tags;
 import Model.Users;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -145,11 +144,11 @@ public class FetchResource {
     
     
     @GET
-    @Path("PostByTag/{id}")
+    @Path("PostByTag/{tag}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPostByTag(@PathParam("id") int i) {
+    public String getPostByTag(@PathParam("tag") String tag) {
         List<JsonObjectBuilder> list = new ArrayList<>();
-        List<Posts> object = dm.getPostByTag(dm.getTagById(i));
+        List<Posts> object = dm.getPostByTag(dm.getTagByName(tag));
         JsonObjectBuilder out;
         for (Posts p : object) {
             out = Json.createObjectBuilder()
@@ -157,7 +156,8 @@ public class FetchResource {
                     .add("path", p.getPath())
                     .add("title", p.getTitle())
                     .add("description", p.getDescription())
-                    .add("owner", p.getOwner().getUsername());
+                    .add("owner", p.getOwner().getUsername())
+                    .add("tag", p.getTag().getTagname());
             list.add(out);
         }
         return JSONBuilder(list);
@@ -167,19 +167,19 @@ public class FetchResource {
     @Path("PostByUser/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPostByUser(@PathParam("id") int i) {
-        List<JsonObjectBuilder> list = new ArrayList<>();
-        List<Posts> object = dm.getPostByUser(dm.getUserById(i));
-        JsonObjectBuilder out;
-        for (Posts p : object) {
-            out = Json.createObjectBuilder()
-                    .add("id", p.getPostId())
-                    .add("path", p.getPath())
-                    .add("title", p.getTitle())
-                    .add("description", p.getDescription())
-                    .add("tag", p.getTag().getTagname());
-            list.add(out);
-        }
-        return JSONBuilder(list);
+    List<JsonObjectBuilder> list = new ArrayList<>();
+    List<Posts> object = dm.getPostByUser(dm.getUserById(i));
+    JsonObjectBuilder out;
+    for (Posts p : object) {
+        out = Json.createObjectBuilder()
+                .add("id", p.getPostId())
+                .add("path", p.getPath())
+                .add("title", p.getTitle())
+                .add("description", p.getDescription())
+                .add("tag", p.getTag().getTagname());
+        list.add(out);
+    }
+    return JSONBuilder(list);
     }
     
     

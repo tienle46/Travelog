@@ -5,7 +5,7 @@
 	<title>Travelog</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
-        <link rel="stylesheet" type="text/css" href="style/box-style.css">
+    <link rel="stylesheet" type="text/css" href="style/box-style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         
 </head>
@@ -29,14 +29,14 @@
 		      			<h2>Travelog</h2>
 		      		</div>
 		      		<div class="wrap">
-                                    <form  action = "webresources/Search/Find" method ="post">
+                                    <form>
 				   		<div class="search">
-				      		<input name ="query" type="text" class="searchTerm">
+				      		<input type="text" class="searchTerm">
 				      		<button type="submit" class="searchButton">
                                                     <a href="search.html"><i class="fa fa-search" aria-hidden="true"></i></a>
 				     		</button>
 				   		</div>
-                                    </form>
+                                        </form>
 					</div>
 		    	</div>
 			</div>
@@ -68,9 +68,11 @@
 	</div>
         
     <main class="primary-color main-content"> <!--main content-->
-        <ul class="img-list">
+    	<h3 style="margin-left: 15px;">Search result:</h3>
+        <ul class="search-list">
         </ul>
     </main>
+    
     <div class="footer">
 		<p>Travelog &#169; 2017</p>
 	</div>
@@ -88,7 +90,6 @@
         };
 
         //UPLOAD POPUP
-        
         var upModal = document.getElementById("upload-modal");
         
         window.onclick = function(event) {
@@ -96,12 +97,34 @@
                 upModal.style.display = "none";
             }
         };
-		
-                
-        //IMAGE MODAL
-        
 	</script>
-        
-        
+        <!-->
+        <script>
+            var searchInput = document.querySelector("#search");
+            searchInput.value = getCookie("searchId");
+            function loadImgSearch() {
+    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/PostByTag/' + searchInput);
+    
+    
+    fetch(myRequest)
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].tag === searchInput) {
+                var listItem = document.createElement('li');
+          listItem.innerHTML = '<a id="'+data[i].id+'" onclick = "getId(this.id)" href="" target="_blank"><img class="myImg"  src="' + data[i].path + '" alt="'+ data[i].description +'"></a><div class="info-hidden" style="display:none"><div id=""></div></div>';                                                                                            
+          document.getElementsByClassName('.search-list').appendChild(listItem);
+            }
+        }
+      });
+      
+}
+            
+            
+            
+            
+            
+        </script>
+        -->
 </body>
 </html>

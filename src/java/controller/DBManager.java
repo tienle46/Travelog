@@ -235,4 +235,10 @@ public class DBManager {
         }
         return false;
     }
+    
+    public List<Posts> search(String keyword) {
+        Query query = em.createQuery("SELECT p FROM Posts p WHERE (p.title = "+ keyword +" OR p.owner = " + keyword +" OR p.tag = "+keyword+")");
+        List<Posts> list = query.getResultList();
+        return list;
+    }
 }

@@ -122,12 +122,12 @@
             <form action="webresources/Content/Login" method="post" id ="login">
 	  <div class="container">
 	    <label><b>Username</b></label>
-	    <input type="text" placeholder="Enter Username" name="uname" required>
+	    <input type="text" placeholder="Enter Username" id="usname" name="uname" maxlength="25" required>
 
 	    <label><b>Password</b></label>
-	    <input type="password" placeholder="Enter Password" name="psw" required>
+	    <input type="password" placeholder="Enter Password" id="uspassword" name="psw" required>
 	        
-	    <button type="submit" name ="Submit">Login</button>
+	    <button type="submit" name ="Submit" onclick="checkLoginInput()">Login</button>
 	  </div>
 	  </form>
 	</div>
@@ -136,15 +136,15 @@
             <form action="webresources/Content/Signup" id = "signup" method="post" >
 	  <div class="container">
 	    <label><b>Username</b></label>
-	    <input type="text" placeholder="Enter Username" name="signup_uname" required>
+	    <input type="text" placeholder="Enter Username" id="uname" name="signup_uname" maxlength="25" required>
 
 	    <label><b>Email</b></label>
-	    <input type="text" placeholder="Enter Email" name="signup_email" required>
+	    <input type="text" placeholder="Enter Email" id="uemail" name="signup_email" required>
 
 	    <label><b>Password</b></label>
-	    <input type="password" placeholder="Enter Password" name="signup_psw" required>
+	    <input type="password" placeholder="Enter Password" id="upsw" name="signup_psw" required>
 	        
-	    <button type="submit" name ="Submit">Sign up</button>
+            <button type="submit" name ="Submit" onclick="checkSignUpInput()">Sign up</button>
           </div>
 	  </form> 
 	</div>
@@ -166,6 +166,33 @@
 	    document.getElementById(tabName).style.display = "block";
 	    evt.currentTarget.className += " active";
 	}
+        function checkSignUpInput() {
+        var uname = document.getElementById("uname");
+        var upsw = document.getElementById("upsw");
+        var uemail = document.getElementById("uemail");
+        
+        if (uname.checkValidity() == false) {
+        alert("Invalid or blank username");
+        } 
+        else if (uemail.checkValidity() == false) {
+            alert("Invalid or blank email");
+        } 
+        else if (upsw.checkValidity() == false) {
+            alert("Invalid or blank password");
+        } 
+        }
+        
+        function checkLoginInput() {
+        var usname = document.getElementById("usname");
+        var upassword = document.getElementById("uspassword");
+        
+        if (usname.checkValidity() == false) {
+            alert("Invalid or blank username");
+        } 
+        else if (upassword.checkValidity() == false) {
+            alert("Invalid or blank password");
+        } 
+        }
 	</script>
      
 </body>

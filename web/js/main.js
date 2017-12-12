@@ -10,17 +10,17 @@ function logoutButton() {
 }
 
 
-function getCookie() {
-    var cookieName = 'travelogId=';
-    var ca = document.cookie.split(';');
-    
-    for (var i =0; i < ca.length; i++) {
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c =c.substring(1);
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
         }
-        if (c.indexOf(cookieName) == 0) {
-            return c.substring(cookieName.length, c.length);
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
         }
     }
     return "";
@@ -35,7 +35,7 @@ function createCookie() {
     var id;
     
     if (document.cookie.indexOf('travelogId') > -1) {
-        id = getCookie();
+        id = getCookie("travelogId");
     } else if (window.location.href.indexOf('id') > -1) {
         id = window.location.href.split('?')[1].replace('id=','');
         document.cookie = 'travelogId=' + id + ';expires=Thu, 18 Dec 2020 12:00:00 UTC';
@@ -48,7 +48,7 @@ function createCookie() {
 function loadImg() {
     var myList = document.querySelector('.img-list');
 
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog-final3324008235048993204/webresources/Fetch/AllPost');
+    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/AllPost');
 
     fetch(myRequest)
       .then(function(response) { return response.json(); })
@@ -74,63 +74,23 @@ function displayImg() {
     }
 }
 
+function hideItem() {
+    var userId = getCookie("travelogId");
+    var hiddenElm=document.getElementsByClassName('hidden');
+
+    if (userId === "") {
+      for (var i=0; i<hiddenElm.length; i++){
+          hiddenElm[i].style.display='none';
+      }
+    } 
+}
+
 function getId(clicked_id) {
               document.cookie = 'postId=' + clicked_id + ';expires=Thu, 18 Dec 2020 12:00:00 UTC';
               document.getElementById(clicked_id).href='view.html';
-          }
-/*
-var imgId = document.querySelector('#img-id');
-var imgValue = imgId.value;
-
-function displayImg() {
-    var imgTitle = document.querySelector("#img-title");
-    var imgOwner = document.querySelector("#img-owner");
-    var imgDate = document.querySelector("#img-date");
-    var imgTag = document.querySelector("#img-tag");
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog-final3324008235048993204/webresources/Fetch/AllPost');
-    
-    
-    fetch(myRequest)
-      .then(function(response) { return response.json(); })
-      .then(function(data) {
-        for (var i = 0; i < data.length; i++) {
-          var id = data[i].id;
-          var title = data[i].title;
-          var owner = data[i].owner;
-          var tag = data[i].tag;
-          var date = data[i].date;
-          if (id === imgValue) {
-              imgTitle.innerHTML = title;
-              imgOwner.innerHTML = owner;
-              imgDate.innerHTML = date;
-          }
-        }
-      });
-}
-*/
-/*
-window.onload = function() {
-        var imgClick = document.getElementById("myImg1");
-        var insertImg = document.getElementById("image-popup");
-        var imgCaption = document.getElementById("caption");
-        
-        imgClick.onclick = function() {
-            imgModal.style.display = "block";
-            insertImg.src = this.src;
-            imgCaption.innerHTML = this.alt;    
-        };
-        };
-        
-        var imgModal = document.getElementById("image-modal");
-      
-         window.onclick = function(event) {
-            if (event.target === imgModal) {
-                imgModal.style.display = "none";
-            }
-        };
-*/
+          } 
 createCookie();
 loadImg();
-//displayImg();
+hideItem();
 var idInput = document.querySelector('#userId');
-idInput.value = getCookie();
+idInput.value = getCookie("travelogId");
