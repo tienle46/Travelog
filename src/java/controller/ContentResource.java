@@ -5,7 +5,6 @@
  */
 package Controller;
 
-import Model.Comments;
 import Model.Users;
 import java.net.URISyntaxException;
 import javax.ejb.EJB;

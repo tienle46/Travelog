@@ -9,7 +9,6 @@ import Model.Posts;
 import Model.Tags;
 import Model.Users;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -33,10 +32,11 @@ public class Upload extends HttpServlet {
             throws ServletException, IOException {
         try {
             Tags tag = new Tags();
-            tag.setTagname(request.getParameter("tag"));
+            
             if (dm.getTagByName(request.getParameter("tag")) == null) {
+                tag.setTagname(request.getParameter("tag"));
                 dm.insertTag(tag);
-            }
+            } else tag = dm.getTagByName(request.getParameter("tag"));
             Users u = (Users) dm.getUserById(Integer.parseInt(request.getParameter("userId")));
         System.out.print(u);
         String filename = u.getUserId().toString() + "_" + request.getPart("file").getSubmittedFileName();
@@ -50,7 +50,7 @@ public class Upload extends HttpServlet {
         dm.insertPost(post);
         request.getPart("file").write(                                                                                                                                                  filename);
         response.sendRedirect("index.html");
-        } catch (Exception pokemon) {
+        } catch (IOException | NumberFormatException | ServletException pokemon) {
             java.util.logging.Logger.getLogger(Upload.class.getName()).log(Level.SEVERE, null, pokemon);
         } 
     }

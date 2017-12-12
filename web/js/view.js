@@ -84,8 +84,7 @@ function loadLike() {
 }
 
 function getId1(clicked_id) {
-              document.cookie = 'abcId=' + clicked_id + ';expires=Thu, 18 Dec 2020 12:00:00 UTC';
-              
+              document.cookie = 'tag=' + clicked_id + ';expires=Thu, 18 Dec 2020 12:00:00 UTC';
           }
 loadImgView();
 loadComment();

@@ -52,12 +52,12 @@ public class FetchResource {
     }
 
     
-    
+    //Get all users
     @GET
     @Path("AllUser")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public String getUser() {
-        JsonObjectBuilder out = null;
+        JsonObjectBuilder out;
         List<JsonObjectBuilder> list = new ArrayList<>();
         for (Users u : dm.getAllUser()) {
        
@@ -70,11 +70,12 @@ public class FetchResource {
         return JSONBuilder(list);
     }
     
+    //Get all posts
     @GET
     @Path("AllPost")
     @Produces(MediaType.APPLICATION_JSON)
     public String allPost() {
-        JsonObjectBuilder out = null;
+        JsonObjectBuilder out;
         List<JsonObjectBuilder> list = new ArrayList<>();
         for (Posts t:dm.getAllPosts()) {
        
@@ -92,6 +93,7 @@ public class FetchResource {
         return JSONBuilder(list);
     }
     
+    //
     @GET
     @Path("Comment/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -99,7 +101,7 @@ public class FetchResource {
         List<Comments> object = dm.getCommentForPost(dm.getPostByID(i));
 
         
-        JsonObjectBuilder out = null;
+        JsonObjectBuilder out;
         List<JsonObjectBuilder> list = new ArrayList<>();
         for (Comments c: object) {
             
@@ -144,9 +146,9 @@ public class FetchResource {
     
     
     @GET
-    @Path("PostByTag/{tag}")
+    @Path("PostByTag/{tag1}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPostByTag(@PathParam("tag") String tag) {
+    public String getPostByTag(@PathParam("tag1") String tag) {
         List<JsonObjectBuilder> list = new ArrayList<>();
         List<Posts> object = dm.getPostByTag(dm.getTagByName(tag));
         JsonObjectBuilder out;

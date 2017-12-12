@@ -3,45 +3,44 @@
 <head>
 	<meta charset="utf-8">
 	<title>Travelog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
-        <link rel="stylesheet" type="text/css" href="style/box-style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         
 </head>
 <body>
-	<div class="topnav" id="myTopnav"> <!--nav-->
+	<nav id="myTopnav">
 			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			<a href="index.html" class="nav-hidden">Home</a>
 			<a href="login.html" id="login">Login</a>
 			<a href="#">About</a>
 			<a href="#" onclick="document.getElementById('upload-modal').style.display='block'" class="hidden">Upload</a>
-    </div>
+    </nav>
 
- 	<div class="banner"> <!--header-->
+ 	<header class="banner"> <!--header-->
     	<div class="image">
       		<img src="img/banner.jpeg">
     	</div>
 		<div class="content">
 		 	<div class="valign-table">
-		    	<div class="valign-cell"> <!--minimize divs-->
+		    	<div class="valign-cell">
 		      		<div class="text">
 		      			<h2>Travelog</h2>
 		      		</div>
 		      		<div class="wrap">
-                                    <form  action = "webresources/Search/Find" method ="post">
+                        <form  action = "webresources/Search/Find" method ="post">
 				   		<div class="search">
-				      		<input name ="query" type="text" class="searchTerm">
+				      		<input name ="query" type="text" class="idTerm searchTerm ">
 				      		<button type="submit" class="searchButton">
-                                                    <a href="search.html"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="search.html"><i class="fa fa-search" aria-hidden="true"></i></a>
 				     		</button>
 				   		</div>
-                                    </form>
+                        </form>
 					</div>
 		    	</div>
 			</div>
 		</div>
-  	</div>
+  	</header>
 
   	<div id="upload-modal" class="upload-modal">
 		<form class="upload-modal-content" action="Upload" method ="post" enctype="multipart/form-data">
@@ -71,15 +70,16 @@
         <ul class="img-list">
         </ul>
     </main>
-    <div class="footer">
+
+    <footer>
 		<p>Travelog &#169; 2017</p>
-	</div>
+	</footer>
         
-        <script src ="js/main.js"></script>
+    <script src ="js/main.js"></script>
   	<script>
         //MENU RESPONSIVE
         const myFunction=() => {
-        const x = document.getElementById("myTopnav");
+        var x = document.getElementById("myTopnav");
                 if (x.className === "topnav") {
                 x.className += " responsive";
                 } else {
@@ -96,12 +96,6 @@
                 upModal.style.display = "none";
             }
         };
-		
-                
-        //IMAGE MODAL
-        
 	</script>
-        
-        
 </body>
 </html>

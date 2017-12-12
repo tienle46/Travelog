@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="style/view-style.css">
+	<meta charset="utf-8">
+  <title>Travelog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="style/view-style.css">
 </head>
 <body>
-	<div class="container">
-    <div class="box1">
+  <main class="container">
+    <article>
       <figure>
-      <img src="paris.jpg" id="img-popup">  
-      <figcaption><span id="img-title"></span> by <span id="img-owner"><a href="">Xao Lon</a></span> on <span id="img-date">Dec 7th</span></figcaption>
+        <img src="" id="img-popup">  
+        <figcaption><span id="img-title"></span> by <span id="img-owner"><a href="">n</a></span> on <span id="img-date"></span></figcaption>
       </figure>    
-    </div>
-    <div class="box2">
-      <h3 id="caption" style="margin-top: 0">
-      </h3>
+    </article>
+
+    <aside>
+      <h3 id="caption" style="margin-top: 0"></h3>
       <p>
             <span id="img-tag"></span>
             <form>
                 <input type = "hidden" id = "search" name ="search">
             </form>
       </p>
-        <form action="webresources/Content/Like" method="post" style="padding-bottom: 5px;">
-            <input name ="userId1" type="hidden" id ="userId1">
-            <input name ="postId1" type="hidden" id ="postId1">
-            <button class="like-button hidden">
-            <a id="heart"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:16px;"></i></a>
-            </button>
-            <span id="like-number"></span> people liked this
-        </form>
 
-      
+      <form action="webresources/Content/Like" method="post" style="padding-bottom: 5px;">
+          <input name ="userId1" type="hidden" id ="userId1">
+          <input name ="postId1" type="hidden" id ="postId1">
+          <button class="like-button hidden">
+          <a id="heart"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:16px;"></i></a>
+          </button>
+          <span id="like-number"></span> people liked this
+      </form>
+
+
       <form class="hidden cmt-box" action="webresources/Content/Comment" method ="post">
         <input name ="userId" type="hidden" id ="userId">
         <input name ="postId" type="hidden" id ="postId">
         <input type="text" name="comment" required>
         <button type="submit" class="button">CMT</button>
       </form>
-	  
-	  <div class="cmt-list-box">
-		  <ul class="cmt-list">
-		  </ul>
-	  </div>
-    </div>
-    </div>
+
+      <div class="cmt-list-box">
+        <ul class="cmt-list">
+
+        </ul>
+      </div>
+    </aside>
+  </main>
     
-    <script src ="js/view.js"></script>
-    <script src ="js/main.js"></script>
-    
+  <script src ="js/view.js"></script>
+  <script src ="js/main.js"></script>
 </body>
 </html>

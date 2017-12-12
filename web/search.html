@@ -1,47 +1,45 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Travelog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="stylesheet" type="text/css" href="style/box-style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         
 </head>
 <body>
-	<div class="topnav" id="myTopnav"> <!--nav-->
+	<nav id="myTopnav">
 			<a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
 			<a href="index.html" class="nav-hidden">Home</a>
 			<a href="login.html" id="login">Login</a>
 			<a href="#">About</a>
 			<a href="#" onclick="document.getElementById('upload-modal').style.display='block'" class="hidden">Upload</a>
-    </div>
+    </nav>
 
- 	<div class="banner"> <!--header-->
+ 	<header class="banner"> <!--header-->
     	<div class="image">
       		<img src="img/banner.jpeg">
     	</div>
 		<div class="content">
 		 	<div class="valign-table">
-		    	<div class="valign-cell"> <!--minimize divs-->
+		    	<div class="valign-cell">
 		      		<div class="text">
 		      			<h2>Travelog</h2>
 		      		</div>
 		      		<div class="wrap">
-                                    <form>
+                        <form  action = "webresources/Search/Find" method ="post">
 				   		<div class="search">
-				      		<input type="text" class="searchTerm">
+				      		<input name ="query" type="text" class="idTerm searchTerm ">
 				      		<button type="submit" class="searchButton">
-                                                    <a href="search.html"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="search.html"><i class="fa fa-search" aria-hidden="true"></i></a>
 				     		</button>
 				   		</div>
-                                        </form>
+                        </form>
 					</div>
 		    	</div>
 			</div>
 		</div>
-  	</div>
+  	</header>
 
   	<div id="upload-modal" class="upload-modal">
 		<form class="upload-modal-content" action="Upload" method ="post" enctype="multipart/form-data">
@@ -69,15 +67,16 @@
         
     <main class="primary-color main-content"> <!--main content-->
     	<h3 style="margin-left: 15px;">Search result:</h3>
-        <ul class="search-list">
+        <ul id="search-list">
         </ul>
+        
     </main>
     
-    <div class="footer">
+    <footer>
 		<p>Travelog &#169; 2017</p>
-	</div>
+    </footer>
         
-        <script src ="js/main.js"></script>
+       
   	<script>
         //MENU RESPONSIVE
         const myFunction=() => {
@@ -98,33 +97,8 @@
             }
         };
 	</script>
-        <!-->
-        <script>
-            var searchInput = document.querySelector("#search");
-            searchInput.value = getCookie("searchId");
-            function loadImgSearch() {
-    var myRequest = new Request('http://10.114.32.35:8080/Travelog/webresources/Fetch/PostByTag/' + searchInput);
-    
-    
-    fetch(myRequest)
-      .then(function(response) { return response.json(); })
-      .then(function(data) {
-        for (var i = 0; i < data.length; i++) {
-            if (data[i].tag === searchInput) {
-                var listItem = document.createElement('li');
-          listItem.innerHTML = '<a id="'+data[i].id+'" onclick = "getId(this.id)" href="" target="_blank"><img class="myImg"  src="' + data[i].path + '" alt="'+ data[i].description +'"></a><div class="info-hidden" style="display:none"><div id=""></div></div>';                                                                                            
-          document.getElementsByClassName('.search-list').appendChild(listItem);
-            }
-        }
-      });
-      
-}
-            
-            
-            
-            
-            
-        </script>
-        -->
+        
+        <script src ="js/search.js"></script>
+        
 </body>
 </html>
